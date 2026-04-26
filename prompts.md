@@ -30,3 +30,114 @@ Analyze `user-story-enriched.md` file and break down the feature into individual
 6.  Remember to have a consistent structure through all tasks definition.
 
 7.  If you have any questions, please ask them with the goal of achieving the best possible results before creating tasks.
+
+
+# Prompt 3 - Generate agents.md
+
+## Context
+
+Generate an `agents.md` file at the project root that serves as context documentation so an AI agent can work on the codebase without doubts.
+
+## File Requirements
+
+### Location
+- The file must be created at the **project root**, not in subdirectories.
+
+### Mandatory Content
+
+1. **Project Overview**
+   - Project name
+   - Application type
+   - General purpose
+   - Project status
+
+2. **Tech Stack**
+   - Frontend: framework, language, port, testing
+   - Backend: framework, language, ORM, database, ports, testing
+   - Infrastructure: Docker Compose
+
+3. **Project Structure**
+   - Directory tree showing the complete structure
+   - Brief description of each important directory/file
+
+4. **Environment Variables**
+   - Show `.env` structure without exposing real secrets
+   - Use placeholders like `<password>` or `<secret>` for sensitive values
+   - Include database connection details (host, port, user, db name)
+
+5. **Available Commands**
+   - Tables with commands organized by section (Backend, Frontend, Database)
+   - Include: installation, development, build, tests, production
+   - Clear description of each command
+
+6. **Database Schema**
+   - Show current Prisma schema
+   - Include note about project development status
+
+7. **Code Conventions**
+   - Linting and formatting tools used
+   - Important configurations (TypeScript strict, etc.)
+   - Testing patterns
+
+8. **Getting Started**
+   - Numbered steps to start the project from scratch
+   - Essential commands organized by component
+
+9. **Documentation**
+   - Reference to other relevant documentation files
+
+### Excluded Content
+
+- **DO NOT include**: Secrets, passwords, API keys, or any real credentials
+- **DO NOT include**: Specific functionalities or features under development
+- **DO NOT include**: User stories or acceptance criteria
+
+### Detail Level
+
+- Content must be sufficient for an agent to:
+  - Understand the overall architecture
+  - Run the project locally
+  - Run tests
+  - Perform development tasks without hesitation
+  - Understand code conventions
+
+### Format
+
+- Use markdown with hierarchical headers (H1, H2, H3)
+- Tables for command listings
+- Syntax-highlighted code (```bash, ```env, ```prisma)
+- Ordered lists for steps
+- Well-separated and easy-to-scan sections
+
+## Example Structure
+
+```markdown
+# [Project Name]
+
+## Project Overview
+...
+
+## Tech Stack
+...
+
+## Project Structure
+...
+
+## Environment Variables
+...
+
+## Available Commands
+...
+
+## Database Schema
+...
+
+## Code Conventions
+...
+
+## Getting Started
+...
+
+## Documentation
+...
+```
