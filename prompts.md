@@ -11,3 +11,22 @@ Please analyze and fix the `user-story.md` file and follow these steps:
 4.  If the user story lacks the technical and specific detail necessary to allow the developer to be fully autonomous when completing it, provide an improved story that is clearer, more specific, and more concise in line with product best practices described in step 3 on a new file called `user-story-enriched.md` using markdown format.
 
 5.  If you have any questions, please ask them with the goal of achieving the best possible results before creating the enriched issue
+
+
+# Prompt 2 - Enriched US breakdown
+
+Analyze `user-story-enriched.md` file and break down the feature into individual tasks following these steps:
+
+1.  Write each task definition in a single .md file.
+
+2.  Use a short file name that wraps up the issue description. 
+
+3.  First task should have all content related to prisma and schema definition.
+
+4.  The second task should have all definition related to backend endpoint.
+
+5.  Third task should have all description related to frontend stuff.
+
+6.  Remember to have a consistent structure through all tasks definition.
+
+7.  If you have any questions, please ask them with the goal of achieving the best possible results before creating tasks.
