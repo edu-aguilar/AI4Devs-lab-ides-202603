@@ -86,6 +86,7 @@ DATABASE_URL="postgresql://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_N
 
 | Command | Description |
 |---------|-------------|
+| `source ~/.nvm/nvm.sh && nvm use` | Activar Node 22 (requerido antes de npm/npx) |
 | `npm install` | Instalar dependencias |
 | `npm run dev` | Iniciar desarrollo (ts-node-dev, puerto 3010) |
 | `npm run build` | Compilar TypeScript a `dist/` |
@@ -93,6 +94,8 @@ DATABASE_URL="postgresql://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_N
 | `npm test` | Ejecutar tests Jest |
 | `npm run prisma:init` | Inicializar Prisma en nuevo proyecto |
 | `npm run prisma:generate` | Generar cliente Prisma |
+| `npx prisma migrate dev --name <name>` | Crear y aplicar migración (desarrollo) |
+| `npx prisma migrate deploy` | Aplicar migraciones (producción) |
 | `npm run start:prod` | Build + start producción |
 
 ### Frontend
@@ -113,6 +116,9 @@ DATABASE_URL="postgresql://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_N
 
 ## Database Schema (Prisma)
 
+- **Skill**: [backend/.opencode/database.md](backend/.opencode/database.md) - Configuración, modelos, comandos y mejores prácticas de Prisma
+
+### User Model
 ```prisma
 model User {
   id    Int     @id @default(autoincrement())
@@ -120,8 +126,6 @@ model User {
   name  String?
 }
 ```
-
-**Nota**: El modelo `User` es el único actualmente definido. El proyecto está en fase inicial de desarrollo.
 
 ## Code Conventions
 
@@ -140,19 +144,28 @@ model User {
 
 ## Getting Started
 
+### Prerequisites
+- Node.js 22 (managed via nvm)
+- Docker & Docker Compose
+
+### Setup
 1. Clonar repositorio
-2. Iniciar PostgreSQL:
+2. Activar nvm:
+   ```bash
+   source ~/.nvm/nvm.sh && nvm use
+   ```
+3. Iniciar PostgreSQL:
    ```bash
    docker-compose up -d
    ```
-3. Backend:
+4. Backend:
    ```bash
    cd backend
    npm install
    npx prisma generate
    npm run dev
    ```
-4. Frontend:
+5. Frontend:
    ```bash
    cd frontend
    npm install

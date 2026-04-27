@@ -18,3 +18,28 @@ model User {
   email String  @unique
   name  String?
 }
+
+enum CandidateStatus {
+  NEW
+  SCREENING
+  INTERVIEW
+  HIRED
+  REJECTED
+}
+
+model Candidate {
+  id             Int              @id @default(autoincrement())
+  email          String          @unique @db.VarChar(255)
+  firstName      String          @db.VarChar(100)
+  lastName       String          @db.VarChar(100)
+  phone          String?         @db.VarChar(20)
+  address        String?         @db.VarChar(500)
+  education      Json?
+  experience     Json?
+  cvData         Bytes?
+  cvFileName     String?         @db.VarChar(255)
+  cvContentType  String?
+  status         CandidateStatus @default(NEW)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+}

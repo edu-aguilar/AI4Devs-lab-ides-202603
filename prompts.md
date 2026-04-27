@@ -141,3 +141,8 @@ Generate an `agents.md` file at the project root that serves as context document
 ## Documentation
 ...
 ```
+
+
+# Prompt 4 - Implement task 1
+
+Lets define a plan to implement the task 1. Definition is located at task-1-prisma-schema.md file. Remember to read the agents.md file to have all project context and if you have any question do not hesitate to check it with me to have the best results.
