@@ -75,6 +75,11 @@ DATABASE_URL="postgresql://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_N
 - **User**: LTIdbUser
 - **Database**: LTIdb
 
+## Testing
+
+### Frontend Testing
+- **Skill**: [frontend/.opencode/testing.md](frontend/.opencode/testing.md) - Configuración, patrones y mejores prácticas de testing
+
 ## Available Commands
 
 ### Backend
