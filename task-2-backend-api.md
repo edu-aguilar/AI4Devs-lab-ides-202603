@@ -59,7 +59,7 @@ const upload = memoryStorage({
 });
 ```
 
-### Validación (Zod o express-validator)
+### Validación (Zod)
 
 ```typescript
 const candidateSchema = z.object({
@@ -73,10 +73,14 @@ const candidateSchema = z.object({
 });
 ```
 
+### Modularización
+
+- Debe existir una separación por capas: ui, domain e infrastructure. En la carpeta de ui debe existir todo lo relacionado con la definición de endpoints, validación de inputs y todo lo relacionado con express. En la capa domain, deben existir los casos de uso, las interfaces de los repositorios, y las entidades sobre las que se basa nuestro proyecto. Por último, en la capa de infraestructura tendremos la implementación de los repositorios, con su correspondiente acceso a base de datos a través de la librería de prisma. Esta capa dependerá de los modelos de dominio. Aunque no hagamos una arquitectura hexagonal perfecta, mantendremos las capas bien separadas para en el futuro poder iterar la arquitectura con agilidad.
+
+
 ### XSS Sanitización
 
-- Usar `dompurify` o similar en campos texto antes de guardar
-- O usar librería como `xss` de validator
+- Usar `xss` o similar en campos texto antes de guardar
 
 ---
 

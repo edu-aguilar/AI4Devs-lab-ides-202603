@@ -85,6 +85,47 @@ model Candidate {
 - **Bytes**: Para `cvData` (BLOB de archivos CV)
 - **VarChar(n)**: Para strings con longitud limitada
 
+## Trabajando con Tipos Especiales
+
+### Json (education, experience)
+```typescript
+// Guardar array de objetos
+const data = {
+  education: [{ institution: 'MIT', degree: 'BS' }] as any,
+  experience: [{ company: 'Google', position: 'Engineer' }] as any,
+};
+
+// Leer de la base de datos
+const candidate = await prisma.candidate.findUnique({ where: { id: 1 } });
+const education = candidate.education as Education[];
+```
+
+### Bytes (cvData - archivos binarios)
+```typescript
+// Guardar archivo desde Multer
+const data = {
+  cvData: req.file?.buffer,           // Buffer del archivo
+  cvFileName: req.file?.originalname, // Nombre original
+  cvContentType: req.file?.mimetype, // Tipo MIME
+};
+
+// Leer y usar
+const { cvData, cvFileName, cvContentType } = candidate;
+if (cvData) {
+  // cvData es Buffer, puede enviarse como respuesta
+  res.set('Content-Type', cvContentType);
+  res.send(cvData);
+}
+```
+
+## Relaciones con Arquitectura
+
+- Repository implementation: `infrastructure/repositories/`
+- Entity definitions: `domain/entities/`
+- Use cases: `domain/useCases/`
+
+Ver [Architecture Skill](./architecture.md) para más detalles.
+
 ## Comandos Prisma
 
 ### Inicialización

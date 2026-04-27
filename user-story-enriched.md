@@ -163,7 +163,7 @@ cv: file (optional, max 5MB)
 ## Requisitos No Funcionales
 
 ### Seguridad
-- Sanitización de inputs contra XSS (usar DOMPurify o similar)
+- Sanitización de inputs contra XSS (usar xss)
 - Validación de tipo de archivo (MIME check, no solo extensión)
 - Tamaño máximo de archivo enforced en backend
 

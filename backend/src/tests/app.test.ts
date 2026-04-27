@@ -1,6 +1,7 @@
 import request from 'supertest';
-import { app } from '../index';
-import { Request, Response, NextFunction } from 'express'; // Import the necessary types
+import { createApp } from '../app';
+
+const app = createApp();
 
 describe('GET /', () => {
     it('responds with Hello World!', async () => {

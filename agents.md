@@ -23,6 +23,9 @@
 - Puerto: `http://localhost:3010`
 - Testing: Jest + Supertest
 - API Docs: Swagger UI (`/api-docs`)
+- Validation: Zod
+- XSS: xss library
+- File Upload: Multer
 
 ### Infrastructure
 - Docker Compose (PostgreSQL)
@@ -33,16 +36,28 @@
 AI4Devs-lab-ides-202603/
 ├── backend/
 │   ├── src/
-│   │   ├── index.ts          # Entry point, Express app setup
+│   │   ├── app.ts            # Express app factory
+│   │   ├── index.ts          # Entry point (listen)
+│   │   ├── ui/               # Capa UI (routes, validators, middleware)
+│   │   │   ├── routes/
+│   │   │   ├── validators/
+│   │   │   └── middleware/
+│   │   ├── domain/           # Capa Domain (entities, use cases, interfaces)
+│   │   │   ├── entities/
+│   │   │   ├── repositories/
+│   │   │   └── useCases/
+│   │   ├── infrastructure/   # Capa Infrastructure (Prisma repositories)
+│   │   │   └── repositories/
 │   │   └── tests/
-│   │       └── app.test.ts   # API tests
+│   │       ├── app.test.ts
+│   │       └── candidates.test.ts
 │   ├── prisma/
 │   │   └── schema.prisma     # Database schema
 │   ├── package.json
 │   ├── tsconfig.json
 │   ├── .env                  # Environment variables
 │   ├── .eslintrc.js          # ESLint config
-│   ├── .prettierrc           # Code formatting rules
+│   ├── .prettierrc          # Code formatting rules
 │   └── jest.config.js
 ├── frontend/
 │   ├── src/
@@ -79,6 +94,26 @@ DATABASE_URL="postgresql://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_N
 
 ### Frontend Testing
 - **Skill**: [frontend/.opencode/testing.md](frontend/.opencode/testing.md) - Configuración, patrones y mejores prácticas de testing
+
+## Backend Skills
+
+### Architecture
+- **Skill**: [backend/.opencode/architecture.md](backend/.opencode/architecture.md) - Patrón ui/domain/infrastructure, Repository pattern, Use case pattern
+
+### API Development
+- **Skill**: [backend/.opencode/api.md](backend/.opencode/api.md) - Endpoints REST, routing, Multer for file uploads
+
+### Validation
+- **Skill**: [backend/.opencode/validation.md](backend/.opencode/validation.md) - Zod schemas, XSS sanitization
+
+### Testing
+- **Skill**: [backend/.opencode/testing.md](backend/.opencode/testing.md) - Jest + Supertest for API testing
+
+### Swagger
+- **Skill**: [backend/.opencode/swagger.md](backend/.opencode/swagger.md) - OpenAPI docs, JSDoc annotations
+
+### Database
+- **Skill**: [backend/.opencode/database.md](backend/.opencode/database.md) - Prisma ORM, models, migrations
 
 ## Available Commands
 
