@@ -92,7 +92,15 @@ DATABASE_URL="postgresql://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_N
 
 ## Testing
 
-### Frontend Testing
+### Frontend Skills
+
+### General
+- **Skill**: [frontend/.opencode/frontend.md](frontend/.opencode/frontend.md) - Routing, Chakra UI, form handling
+
+### Architecture
+- **Skill**: [frontend/.opencode/architecture.md](frontend/.opencode/architecture.md) - Layered architecture, domain/api/ui separation
+
+### Testing
 - **Skill**: [frontend/.opencode/testing.md](frontend/.opencode/testing.md) - Configuración, patrones y mejores prácticas de testing
 
 ## Backend Skills

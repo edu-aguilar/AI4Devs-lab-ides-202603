@@ -24,6 +24,8 @@ Crear la interfaz de usuario para que el reclutador pueda añadir candidatos des
 | CandidateFormPage | `pages/CandidateFormPage.tsx` | Contenedor con estado |
 | CandidateItem | `components/CandidateItem.tsx` | (para lista futura) |
 
+Apóyate en la librería @chakra-ui/react como catálogo de componentes que utilizar.
+
 ### API Client
 
 ```typescript
