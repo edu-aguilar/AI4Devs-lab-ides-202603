@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import cors from 'cors';
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
 import swaggerJsdoc from 'swagger-jsdoc';
@@ -44,6 +45,7 @@ export function createApp() {
 
   const swaggerDocs = swaggerJsdoc(swaggerOptions);
 
+  app.use(cors());
   app.use(express.json());
 
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));

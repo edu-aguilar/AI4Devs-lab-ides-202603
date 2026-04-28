@@ -12,6 +12,9 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
+  await prisma.candidate.deleteMany({
+    where: { email: 'juan@test.com' },
+  });
   await prisma.$disconnect();
 });
 
@@ -55,13 +58,13 @@ describe('POST /api/candidates', () => {
       .post('/api/candidates')
       .field('firstName', 'Juan')
       .field('lastName', 'Pérez')
-      .field('email', 'juan2@test.com');
+      .field('email', 'juan@test.com');
 
     const res = await request(app)
       .post('/api/candidates')
       .field('firstName', 'Juan')
       .field('lastName', 'Pérez')
-      .field('email', 'juan2@test.com');
+      .field('email', 'juan@test.com');
 
     expect(res.status).toBe(409);
     expect(res.body.error).toContain('already exists');
