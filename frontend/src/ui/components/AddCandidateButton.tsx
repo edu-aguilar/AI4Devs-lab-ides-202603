@@ -1,7 +1,11 @@
-import { Button } from '@chakra-ui/react';
+import { Button, ButtonProps } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
-export function AddCandidateButton() {
+interface AddCandidateButtonProps extends Omit<ButtonProps, 'onClick'> {
+  label?: string;
+}
+
+export function AddCandidateButton({ label = 'Añadir Candidato', ...props }: AddCandidateButtonProps) {
   const navigate = useNavigate();
 
   return (
@@ -9,8 +13,9 @@ export function AddCandidateButton() {
       colorScheme="blue"
       onClick={() => navigate('/candidates/new')}
       size="md"
+      {...props}
     >
-      Añadir Candidato
+      {label}
     </Button>
   );
 }

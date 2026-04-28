@@ -1,4 +1,4 @@
-import { Box, Container, Heading, Text, VStack, HStack, Button, useColorModeValue } from '@chakra-ui/react';
+import { Box, Container, Heading, Text, VStack, HStack, useColorModeValue } from '@chakra-ui/react';
 import { AddCandidateButton } from '../components/AddCandidateButton';
 
 export function Dashboard() {
@@ -42,14 +42,11 @@ export function Dashboard() {
               <Text color="gray.600">
                 Comienza añadiendo nuevos candidatos a tu base de datos.
               </Text>
-              <Button
-                colorScheme="blue"
+              <AddCandidateButton
+                label="Añadir Nuevo Candidato"
                 size="lg"
-                onClick={() => window.location.href = '/candidates/new'}
                 w="full"
-              >
-                Añadir Nuevo Candidato
-              </Button>
+              />
             </VStack>
           </Box>
 
