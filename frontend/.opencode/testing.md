@@ -9,6 +9,29 @@ Esta skill cubre todo lo relacionado con testing en el proyecto de frontend Reac
 - **Testing Library**: React Testing Library + Jest DOM
 - **Language**: TypeScript 4.9.5
 
+## Niveles de Testing
+
+### 1. Unit Tests
+- Funciones puras, hooks personalizados, utilidades
+- Sin dependencias de React componentes
+- Mock de todas las dependencias externas
+
+### 2. Component Tests
+- Componentes React aislados
+- Props como entrada, render UI como salida
+- No se mockean child components (renderizar todo)
+
+### 3. Integration Tests
+- Múltiples componentes trabajando juntos
+- APIs externas mockeadas
+- Flujos completos de usuario
+- **Este es el nivel recomendado para formularios y lógica de negocio**
+
+### 4. E2E Tests
+- Cypress/Playwright (fuera del scope de Jest)
+- Testing completo sin mocks
+- Solo para flujos críticos
+
 ## Configuración
 
 ### Dependencies (package.json)
@@ -128,15 +151,120 @@ test('useState hook', () => {
 });
 ```
 
+## Integration Tests con Componentes
+
+### Render con Providers
+Muchos componentes requieren providers (Router, Chakra, Context, etc.):
+```tsx
+import { ChakraProvider } from '@chakra-ui/react';
+import { BrowserRouter } from 'react-router-dom';
+
+const renderWithProviders = (component: React.ReactNode) => {
+  return render(
+    <ChakraProvider>
+      <BrowserRouter>
+        {component}
+      </BrowserRouter>
+    </ChakraProvider>
+  );
+};
+
+// Uso
+test('renders form', () => {
+  renderWithProviders(<MyForm />);
+  expect(screen.getByText('Submit')).toBeInTheDocument();
+});
+```
+
+### Flujo completo de formulario
+Para integration tests de formularios:
+```tsx
+describe('CandidateForm - Validación', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('muestra error cuando email es inválido', async () => {
+    renderWithProviders(<CandidateForm />);
+
+    // 1. Fill campos obligatorios
+    fireEvent.input(screen.getByPlaceholderText('Juan'), {
+      target: { name: 'firstName', value: 'Juan' },
+    });
+    fireEvent.input(screen.getByPlaceholderText('Pérez'), {
+      target: { name: 'lastName', value: 'Pérez' },
+    });
+    fireEvent.input(screen.getByPlaceholderText('email@test.com'), {
+      target: { name: 'email', value: 'invalid-email' },
+    });
+
+    // 2. Submit
+    fireEvent.submit(screen.getByText('Guardar'));
+
+    // 3. Verificar error
+    await waitFor(() => {
+      expect(screen.getByText(/email inválido/i)).toBeInTheDocument();
+    });
+  });
+});
+```
+
+## Mocking para Integration Tests
+
+### Mock de APIs externas
+```tsx
+jest.mock('../api/candidates', () => ({
+  createCandidate: jest.fn(),
+}));
+
+import { createCandidate } from '../api/candidates';
+
+// En el test
+(createCandidate as jest.Mock).mockResolvedValue({ id: 1 });
+```
+
+### Mock de react-router-dom
+```tsx
+const mockNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockNavigate,
+}));
+
+// Verificar
+expect(mockNavigate).toHaveBeenCalledWith('/');
+```
+
+### Mock de Chakra hooks
+```tsx
+const mockToast = jest.fn();
+
+jest.mock('@chakra-ui/react', () => {
+  const actual = jest.requireActual('@chakra-ui/react');
+  return {
+    ...actual,
+    useToast: () => mockToast,
+  };
+});
+
+// Verificar
+expect(mockToast).toHaveBeenCalledWith(
+  expect.objectContaining({ title: 'Éxito', status: 'success' })
+);
+```
+
 ## Best Practices
 
 1. **Naming**: `NombreComponente.test.tsx` o `NombreComponente.spec.tsx`
 2. **AAA Pattern**: Arrange, Act, Assert
-3. **Queries優先序**: getByRole > getByLabelText > getByText > getByTestId
-4. **No test IDs**: Usa roles y texto accessible cuando sea posible
+3. **Queries Priority**: getByRole > getByLabelText > getByText > getByTestId
+4. **data-testid**: Usar cuando no hay alternativa accessible (ej. botones dinámicos)
 5. **User Event**: Prefiere `@testing-library/user-event` sobre `fireEvent`
-6. **Async**: Usa `findBy` para elementos que aparecen asíncronamente
-7. **Cleanup**: CRA limpia automáticamente entre tests (no necesitas afterEach)
+6. **Async**: Usa `findBy` o `waitFor` para elementos asíncronos
+7. **Cleanup**: CRA limpia automáticamente (no necesitas afterEach)
+8. **Integration > Unit**: Prefiere tests de integración sobre unitarios cuando el costo es similar
+9. **Mock sparingly**: Solo mockea lo necesario (APIs externas, hooks de libs)
 
 ## Errores comunes y soluciones
 

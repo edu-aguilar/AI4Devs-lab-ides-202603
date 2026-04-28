@@ -143,6 +143,7 @@ export function CandidateForm() {
           <Heading size="md">Educación</Heading>
           <Button
             size="sm"
+            data-testid="add-education"
             onClick={() => educationFieldArray.append({ institution: '', degree: '', startYear: 2000, endYear: 2000 })}
           >
             + Añadir
@@ -213,6 +214,7 @@ export function CandidateForm() {
           <Heading size="md">Experiencia</Heading>
           <Button
             size="sm"
+            data-testid="add-experience"
             onClick={() => experienceFieldArray.append({ company: '', position: '', startDate: '', endDate: '', description: '' })}
           >
             + Añadir
